@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author pc01
@@ -94,4 +96,73 @@ public class Cliente extends Persona {
         }
     }
     
+    @Override
+    public void actualizar() {
+        try{
+            PreparedStatement parametro;
+            cn = new Conexion();
+            cn.abrir_conexion();
+            StringBuilder query = new StringBuilder("update clientes set ");
+            List<String> parametros = new ArrayList<>();
+            
+            if(getNombres() != null && !getNombres().isEmpty()){
+                query.append("nombres = ?, ");
+                parametros.add(getNombres());
+            }
+            if(getApellidos() != null && !getApellidos().isEmpty()){
+                query.append("apellidos = ?, ");
+                parametros.add(getApellidos());
+            }
+            if(getDireccion() != null && !getDireccion().isEmpty()){
+                query.append("direccion = ?, ");
+                parametros.add(getDireccion());
+            }
+            if(getTelefono() != null && !getTelefono().isEmpty()){
+                query.append("telefono = ?, ");
+                parametros.add(getTelefono());
+            }
+            if(getFecha_nacimiento() != null && !getFecha_nacimiento().isEmpty()){
+                query.append("fecha_nacimiento = ?, ");
+                parametros.add(getFecha_nacimiento());
+            }
+            
+            query.setLength(query.length() - 2);
+            query.append(" where nit = ?;");
+            parametros.add(getNit());
+            parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query.toString());
+            
+            for(int i = 0; i < parametros.size(); i++){
+                parametro.setString(i + 1, parametros.get(i));
+            }
+            
+            int executar = parametro.executeUpdate();
+            System.out.println("Se actualizo: " + Integer.toString(executar) + " Registro");
+            cn.cerrar_conexion();
+        } catch(SQLException ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+    
+    @Override
+    public void borrar(){
+        try{
+            PreparedStatement parametro;
+            cn = new Conexion();
+            cn.abrir_conexion();
+            String query = "delete from clientes where nit = ?;";
+            parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
+            parametro.setString(1, getNit());
+            int executar = parametro.executeUpdate();
+            
+            if(executar > 0){
+                System.out.println("Se borro correctamente el registro con el NIT: " + getNit());
+            } else{
+                System.out.println("No se encontro un registro con el NIT: " + getNit() + " para borrar.");
+            }
+            
+            cn.cerrar_conexion();
+        } catch(SQLException ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
 }

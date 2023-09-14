@@ -81,8 +81,18 @@ public class frm_clientes extends javax.swing.JFrame {
         });
 
         btn_actualizar.setText("Actualizar");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
 
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
         tbl_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,6 +205,20 @@ public class frm_clientes extends javax.swing.JFrame {
         tbl_clientes.setModel(cliente.leer());
         
     }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // TODO add your handling code here:
+        cliente = new Cliente(txt_nit.getText(), 0, txt_nombres.getText(), txt_apellidos.getText(), txt_direccion.getText(), txt_telefono.getText(), this.txt_fn.getText());
+        cliente.actualizar();
+        tbl_clientes.setModel(cliente.leer());
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+        cliente = new Cliente(txt_nit.getText(), 0, txt_nombres.getText(), txt_apellidos.getText(), txt_direccion.getText(), txt_telefono.getText(), this.txt_fn.getText());
+        cliente.borrar();
+        tbl_clientes.setModel(cliente.leer());
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
