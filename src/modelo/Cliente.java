@@ -89,7 +89,7 @@ public class Cliente extends Persona {
             int executar = parametro.executeUpdate();
             System.out.println("Se inserto: " + Integer.toString(executar) + "Registro");
             cn.cerrar_conexion();
-        } catch(Exception ex){
+        } catch(SQLException ex){
             System.out.println("Error: " + ex.getMessage());
         }
     }
