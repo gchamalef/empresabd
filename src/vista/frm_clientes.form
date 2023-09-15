@@ -54,13 +54,13 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lbl_idText" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_nit" alignment="0" pref="208" max="32767" attributes="0"/>
                               <Component id="txt_nombres" alignment="0" max="32767" attributes="0"/>
                               <Component id="txt_apellidos" alignment="0" max="32767" attributes="0"/>
                               <Component id="txt_direccion" alignment="0" max="32767" attributes="0"/>
                               <Component id="txt_telefono" alignment="0" max="32767" attributes="0"/>
                               <Component id="txt_fn" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbl_idText" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="btn_agregar" min="-2" max="-2" attributes="0"/>
@@ -217,6 +217,10 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_clientesMouseClicked"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tbl_clientesKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

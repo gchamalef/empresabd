@@ -105,6 +105,16 @@ public class frm_clientes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_clientesMouseClicked(evt);
+            }
+        });
+        tbl_clientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbl_clientesKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_clientes);
 
         javax.swing.GroupLayout pnl_principalLayout = new javax.swing.GroupLayout(pnl_principal);
@@ -126,13 +136,13 @@ public class frm_clientes extends javax.swing.JFrame {
                             .addComponent(lbl_id))
                         .addGap(18, 18, 18)
                         .addGroup(pnl_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_idText)
                             .addComponent(txt_nit, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                             .addComponent(txt_nombres)
                             .addComponent(txt_apellidos)
                             .addComponent(txt_direccion)
                             .addComponent(txt_telefono)
-                            .addComponent(txt_fn))
+                            .addComponent(txt_fn)
+                            .addComponent(lbl_idText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(45, 45, 45)
                         .addComponent(btn_agregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -208,17 +218,39 @@ public class frm_clientes extends javax.swing.JFrame {
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         // TODO add your handling code here:
-        cliente = new Cliente(txt_nit.getText(), 0, txt_nombres.getText(), txt_apellidos.getText(), txt_direccion.getText(), txt_telefono.getText(), this.txt_fn.getText());
+        cliente = new Cliente(txt_nit.getText(), Integer.parseInt(lbl_idText.getText()), txt_nombres.getText(), txt_apellidos.getText(), txt_direccion.getText(), txt_telefono.getText(), this.txt_fn.getText());
         cliente.actualizar();
         tbl_clientes.setModel(cliente.leer());
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        cliente = new Cliente(txt_nit.getText(), 0, txt_nombres.getText(), txt_apellidos.getText(), txt_direccion.getText(), txt_telefono.getText(), this.txt_fn.getText());
+        cliente = new Cliente();
+        cliente.setId(Integer.parseInt(lbl_idText.getText()));
         cliente.borrar();
         tbl_clientes.setModel(cliente.leer());
     }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    public void select_datos(){
+        int fila = tbl_clientes.getSelectedRow();
+        lbl_idText.setText(tbl_clientes.getValueAt(fila, 0).toString());
+        txt_nit.setText(tbl_clientes.getValueAt(fila, 1).toString());
+        txt_nombres.setText(tbl_clientes.getValueAt(fila, 2).toString());
+        txt_apellidos.setText(tbl_clientes.getValueAt(fila, 3).toString());
+        txt_direccion.setText(tbl_clientes.getValueAt(fila, 4).toString());
+        txt_telefono.setText(tbl_clientes.getValueAt(fila, 5).toString());
+        txt_fn.setText(tbl_clientes.getValueAt(fila, 6).toString());
+    }
+    
+    private void tbl_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_clientesMouseClicked
+        // TODO add your handling code here:
+        select_datos();
+    }//GEN-LAST:event_tbl_clientesMouseClicked
+
+    private void tbl_clientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_clientesKeyReleased
+        // TODO add your handling code here:
+        select_datos();
+    }//GEN-LAST:event_tbl_clientesKeyReleased
 
     /**
      * @param args the command line arguments
